@@ -1,0 +1,136 @@
+
+
+<body>
+
+    <div class="container">
+
+      <header>
+
+        <h1>WELCOME TO MONEY - MANAGEMENT APPLICATION</h1>
+        <div>
+        {{> loginButtons}}
+      </div>
+        {{#if currentUser}}
+        {{#if showBorrower}}
+           {{> borrowing}}
+        {{else}}
+          {{#if showLender}}
+            {{> lending}}
+          {{else}}
+             {{#if showAdmin}}
+               {{> adm}}
+             {{else}}
+               {{> form}}
+             {{/if}}
+        {{/if}}
+      {{/if}}
+      {{/if}}
+      </header>
+
+    </div>
+
+  </body>
+
+  <template name="form">
+    <div>
+      <h2>Select Role</h2>
+     <button class="Borrower">Borrower</button>
+     <button class="Lender">Lender</button>
+     <button class="Admin">Admin</button>
+    </div>
+  </template>
+  <template name="borrowing">
+    <form class = "Borr">
+    <div>
+      <div>
+      <input type="text" name="t1" placeholder="Enter your name" />
+    </div>
+    <div>
+      <input type="text" name="t2" placeholder="Loan Duration (in Years)" />
+    </div>
+    <div>
+      <input type="text" name="t3" placeholder=" Loan Amount (in Rs) " />
+    </div>
+   <div>
+       <select name = "drp">
+        <option value disabled selected>--Select Loan Type--</option>
+        <option value='Home'>Home Loan</option>
+        <option value='Education'>Education Loan</option>
+        <option value='Vehicle'>Vehicle Loan</option>
+        <option value='Gold'>Gold Loan</option>
+        <option value='Bussiness'>Bussiness Loan</option>
+        </select> 
+   </div>
+     <div>
+      <button class="b">Request Loan</button>
+     </div>
+    </div>
+  </form>
+  <ul>
+    <div>----------------</div>
+    <div><h1>PAST LOANS</h1></div>
+      {{#each pastloans}}
+      <li>
+      <div>Lender Name : {{text5}} </div>
+      <div>Loan Duration : {{text2}}</div>
+      <div>Loan Amount : {{text3}}</div>
+      <div>Loan Type : {{ltype}}</div>      
+      </li>
+       {{/each}}
+  </ul>
+  </template>
+  <template name="lending">
+    <div>
+      {{#if t1}}
+         <h1>No Loans Demanded !!</h1>
+         <button class="a">OK</button>
+      {{else}}
+       <div>Name : {{lend.text1}}</div> 
+       <div>Loan Duration : {{lend.text2}}</div> 
+       <div>Loan Amount : {{lend.text3}}</div> 
+       <div>Loan Type : {{lend.ltype}}</div>
+       <div>
+       <form class = "Len"> 
+      <div><input type="text" name="t5" placeholder="Enter your name" /></div>
+      <div>
+        <select name = "ddown">
+          <option value disabled selected>--Accept/Deny--</option>
+          <option value='Accept'>Accept</option>
+           <option value='Deny'>Deny</option>
+        </select>
+      </div>
+        <button class="c">Submit</button>
+       </form>
+    </div>
+    {{/if}}
+    </div>
+    <ul>
+      <div>----------------</div>
+    <div><h1>PAST PAYMENTS</h1></div>
+      {{#each pastpayments}}
+         <li><div>Borrower Name : {{text1}}</div>
+          <div> Loan Duration : {{text2}}</div>
+          <div>Loan Amount : {{text3}}</div> 
+          <div>Loan Type : {{ltype}}</div>
+         </li>
+      {{/each}}
+  </ul>
+  </template>
+  <template name="adm">
+    <div>
+     <h1> Welcome To The Admin Page </h1>
+     <ul>
+        {{#each admin}}
+        <li>
+          <div>Lender Name : {{text5}} </div>
+          <div>Borrower Name : {{text1}} </div>
+          <div>Duration : {{text2}} Years </div>
+          <div>Amount : Rs. {{text3}} </div>
+          <div>Loan Type : {{ltype}} </div>
+           Loan {{ad}}
+        </li>
+        {{/each}}
+    </ul>
+     <button class="e"> OK </button>
+    </div>
+  </template>
